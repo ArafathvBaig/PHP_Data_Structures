@@ -18,7 +18,7 @@ class SinglyLinkedList
      * Function to add node into the list
      * Passing the data as parameter
      */
-    public function insert($data)
+    public function insertAtLast($data)
     {
         $newNode = new Node();
         $newNode->data = $data;
@@ -43,8 +43,12 @@ class SinglyLinkedList
     {
         $newNode = new Node();
         $newNode->data = $data;
-        $newNode->next = $this->head;
-        $this->head = $newNode;
+        if ($this->head == null) {
+            $this->head = $newNode;
+        } else {
+            $newNode->next = $this->head;
+            $this->head = $newNode;
+        }
     }
 
     /**
@@ -161,7 +165,7 @@ class SinglyLinkedList
                 $temp = $temp->next;
             }
             if ($found == 1) {
-                echo $data . " is found at index = " . $i . ".\n";
+                echo $data . " is found at Position = " . $i . ".\n";
             } else {
                 echo $data . " is not found in the list.\n";
             }
@@ -186,7 +190,7 @@ class SinglyLinkedList
             }
             echo "\n";
         } else {
-            echo "The list is empty.\n";
+            echo "\nThe list is empty.\n";
         }
     }
 
@@ -205,7 +209,7 @@ class SinglyLinkedList
                 $count++;
                 $temp = $temp->next;
             }
-        } 
+        }
         return $count;
     }
 
@@ -227,32 +231,46 @@ class SinglyLinkedList
     public function isTheListEmpty()
     {
         if ($this->head == null) {
-            echo "true";
+            echo "\ntrue";
         } else {
-            echo "false";
+            echo "\nfalse";
         }
     }
-}
-$singlyLinkedList = new SinglyLinkedList();
 
-$singlyLinkedList->insert(10);
-$singlyLinkedList->insert(30);
-$singlyLinkedList->insert(50);
-$singlyLinkedList->printList();
-$singlyLinkedList->insertAtPosition(20, 2);
-$singlyLinkedList->insertAtPosition(40, 4);
-$singlyLinkedList->printList();
-$singlyLinkedList->insert(60);
-$singlyLinkedList->printList();
-$singlyLinkedList->insertAtFirst(5);
-$singlyLinkedList->printList();
-$singlyLinkedList->deleteFirst();
-$singlyLinkedList->printList();
-$singlyLinkedList->deleteLast();
-$singlyLinkedList->printList();
-$singlyLinkedList->insertAtPosition(70, 3);
-$singlyLinkedList->printList();
-$singlyLinkedList->deleteAtPosition(3);
-$singlyLinkedList->printList();
-$singlyLinkedList->search(30);
-$singlyLinkedList->search(70);
+    /**
+     * Function to insert node inbetween 2 nodes
+     * Non-Parameterized function
+     */
+    public function insertInBetween()
+    {
+        $node1 = readline('Enter 1st node data: ');
+        $node2 = readline('Enter 2nd node data: ');
+        $node = readline('Enter a node data to insert in between node1 and node2: ');
+        $newNode = new Node();
+        $newNode->data = $node;
+        $temp = $this->head;
+        while ($temp->data != $node1) {
+            $temp = $temp->next;
+        }
+        $temp1 = $temp->next;
+        $temp->next = $newNode;
+        $newNode->next = $temp1;
+    }
+
+    /**
+     * Function to delete a particular key
+     * Passing the key as parameter
+     */
+    public function deleteKey($key)
+    {
+        $present = $previous = $this->head;
+        while ($present->data != $key) {
+            $previous = $present;
+            $present = $present->next;
+        }
+        if ($present == $previous) {
+            $this->head = $present->next;
+        }
+        $previous->next = $present->next;
+    }
+}

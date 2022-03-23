@@ -20,7 +20,7 @@ class Queue
      */
     public function enqueue($data)
     {
-        $this->singlyLinkedList->insert($data);
+        $this->singlyLinkedList->insertAtLast($data);
     }
 
     /**

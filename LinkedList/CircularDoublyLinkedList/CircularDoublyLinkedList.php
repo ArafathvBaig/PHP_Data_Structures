@@ -19,7 +19,7 @@ class CircularDoublyLinkedList
      * Function to add data into the list
      * Passing the data as parameter
      */
-    public function insert($data)
+    public function insertAtLast($data)
     {
         $newNode = new Node();
         $newNode->data = $data;
@@ -225,7 +225,7 @@ class CircularDoublyLinkedList
                 }
             }
             if ($found == 1) {
-                echo $data . " is found at index = " . $i . ".\n";
+                echo $data . " is found at Position = " . $i . ".\n";
             } else {
                 echo $data . " is not found in the list.\n";
             }
@@ -255,24 +255,43 @@ class CircularDoublyLinkedList
             echo "The list is empty.\n";
         }
     }
-}
-$circularDoublyLinkedList = new CircularDoublyLinkedList();
 
-$circularDoublyLinkedList->insert(11);
-$circularDoublyLinkedList->insert(13);
-$circularDoublyLinkedList->insert(25);
-$circularDoublyLinkedList->printList();
-$circularDoublyLinkedList->insertAtPosition(28, 2);
-$circularDoublyLinkedList->printList();
-$circularDoublyLinkedList->insertAtFirst(5);
-$circularDoublyLinkedList->printList();
-$circularDoublyLinkedList->deleteFirst();
-$circularDoublyLinkedList->printList();
-$circularDoublyLinkedList->deleteLast();
-$circularDoublyLinkedList->printList();
-$circularDoublyLinkedList->insertAtPosition(7, 3);
-$circularDoublyLinkedList->printList();
-$circularDoublyLinkedList->deleteAtPosition(3);
-$circularDoublyLinkedList->printList();
-$circularDoublyLinkedList->search(28);
-$circularDoublyLinkedList->search(7);
+    /**
+     * Function to insert node inbetween 2 nodes
+     * Non-Parameterized function
+     */
+    public function insertInBetween()
+    {
+        $node1 = readline('Enter 1st node data: ');
+        $node2 = readline('Enter 2nd node data: ');
+        $node = readline('Enter a node data to insert in between node1 and node2: ');
+        $newNode = new Node();
+        $newNode->data = $node;
+        $temp = $this->head;
+        while ($temp->data != $node1) {
+            $temp = $temp->next;
+        }
+        $temp1 = $temp->next;
+        $temp->next = $newNode;
+        $newNode->next = $temp1;
+        $temp1->prev = $newNode;
+    }
+
+    /**
+     * Function to delete a particular key
+     * Passing the key as parameter
+     */
+    public function deleteKey($key)
+    {
+        $present = $previous = $this->head;
+        while ($present->data != $key) {
+            $previous = $present;
+            $present = $present->next;
+        }
+        if ($present == $previous) {
+            $this->head = $present->next;
+        }
+        $previous->next = $present->next;
+        $present->prev = $previous;
+    }
+}
