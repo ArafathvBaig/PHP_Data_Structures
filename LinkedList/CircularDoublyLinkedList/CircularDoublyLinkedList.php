@@ -263,7 +263,7 @@ class CircularDoublyLinkedList
     public function insertInBetween()
     {
         $node1 = readline('Enter 1st node data: ');
-        $node2 = readline('Enter 2nd node data: ');
+        //$node2 = readline('Enter 2nd node data: ');
         $node = readline('Enter a node data to insert in between node1 and node2: ');
         $newNode = new Node();
         $newNode->data = $node;
@@ -293,5 +293,36 @@ class CircularDoublyLinkedList
         }
         $previous->next = $present->next;
         $present->prev = $previous;
+    }
+
+    /**
+     * Function to sort the elements in ascending order
+     * Non-Parameterized function
+     */
+    function sortAccendingOrder()
+    {
+        $temp = new Node();
+        $temp = $this->head;
+        if ($temp == null) {
+            echo "List is Empty.";
+        } else {
+            while ($temp->next != $this->head) {
+                $nextNode = $temp->next;
+                while ($nextNode->next != $this->head) {
+                    if ($temp->data > $nextNode->data) {
+                        $temp1 = $temp->data;
+                        $temp->data = $nextNode->data;
+                        $nextNode->data = $temp1;
+                    }
+                    $nextNode = $nextNode->next;
+                }
+                if ($temp->data > $nextNode->data) {
+                    $temp1 = $temp->data;
+                    $temp->data = $nextNode->data;
+                    $nextNode->data = $temp1;
+                }
+                $temp = $temp->next;
+            }
+        }
     }
 }

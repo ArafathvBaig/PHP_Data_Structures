@@ -219,7 +219,7 @@ class DoublyLinkedList
     public function insertInBetween()
     {
         $node1 = readline('Enter 1st node data: ');
-        $node2 = readline('Enter 2nd node data: ');
+        //$node2 = readline('Enter 2nd node data: ');
         $node = readline('Enter a node data to insert in between node1 and node2: ');
         $newNode = new Node();
         $newNode->data = $node;
@@ -230,7 +230,7 @@ class DoublyLinkedList
         $temp1 = $temp->next;
         $temp->next = $newNode;
         $newNode->next = $temp1;
-        $newNode->next->prev = $newNode;
+        //$newNode->next->prev = $newNode;
     }
 
     /**
@@ -239,15 +239,45 @@ class DoublyLinkedList
      */
     public function deleteKey($key)
     {
-        $present = $previous = $this->head;
-        while ($present->data != $key) {
-            $previous = $present;
-            $present = $present->next;
+        if ($this->head != null) {
+            $present = $previous = $this->head;
+            while ($present->data != $key) {
+                $previous = $present;
+                $present = $present->next;
+            }
+            if ($present == $previous) {
+                $this->head = $present->next;
+            }
+            $previous->next = $present->next;
+            $present->prev = $previous;
+        } else {
+            echo "The list is empty.";
         }
-        if ($present == $previous) {
-            $this->head = $present->next;
+    }
+
+    /**
+     * Function to sort the elements in ascending order
+     * Non-Parameterized function
+     */
+    function sortAccendingOrder()
+    {
+        $temp = new Node();
+        $temp = $this->head;
+        if ($temp == null) {
+            echo "List is Empty.";
+        } else {
+            while ($temp != null) {
+                $nextNode = $temp->next;
+                while ($nextNode != null) {
+                    if ($temp->data > $nextNode->data) {
+                        $temp1 = $temp->data;
+                        $temp->data = $nextNode->data;
+                        $nextNode->data = $temp1;
+                    }
+                    $nextNode = $nextNode->next;
+                }
+                $temp = $temp->next;
+            }
         }
-        $previous->next = $present->next;
     }
 }
-
