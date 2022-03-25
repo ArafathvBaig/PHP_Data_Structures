@@ -28,7 +28,7 @@ class SinglyLinkedListMain
         $singlyLinkedList->printList();
         $singlyLinkedList->deleteAtPosition(4);
         $singlyLinkedList->printList();
-        $singlyLinkedList->insertInBetween();
+        $singlyLinkedList->insertAfter();
         $singlyLinkedList->printList();
         $singlyLinkedList->search(70);
         $singlyLinkedList->sortAccendingOrder();

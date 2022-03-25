@@ -7,7 +7,16 @@
  */
 class Stack
 {
-    public $stackArray = array();
+    public $stackArray;
+    public $top;
+    public $size;
+
+    public function __construct($size)
+    {
+        $this->stackArray = array();
+        $this->top = -1;
+        $this->size = $size;
+    }
 
     /**
      * Function to insert the elements into stack
@@ -16,11 +25,11 @@ class Stack
     public function push($data)
     {
         //array_unshift($this->stack, $data);
-        $length = count($this->stackArray);
-        for ($i = $length; $i > 0; $i--) {
-            $this->stackArray[$i] = $this->stackArray[$i - 1];
+        if ($this->top == -1) {
+            echo "\nStack UnderFlow.";
         }
-        $this->stackArray[0] = $data;
+        $this->top++;
+        $this->stackArray[$this->top] = $data;
     }
 
     /**
@@ -33,7 +42,9 @@ class Stack
         if (empty($this->stackArray)) {
             echo "\nStack is empty";
         } else {
-            echo "\nPopped Element: " . array_shift($this->stackArray);
+            echo "\nPopped Element: " . $this->stackArray[$this->top];
+            unset($this->stackArray[$this->top]);
+            $this->top--;
         }
     }
 
@@ -56,7 +67,7 @@ class Stack
      */
     public function peekOfStack()
     {
-        echo "\nPeek of Stack is: " . $this->stackArray[0];
+        echo "\nPeek of Stack is: " . $this->stackArray[$this->top];
     }
 
     /**
@@ -86,9 +97,9 @@ class Stack
      * Function to check stack overflow
      * Non-parameterized function
      */
-    public function stackOverflow($size)
+    public function stackOverflow()
     {
-        if (count($this->stackArray) > $size) {
+        if (count($this->stackArray) > $this->size) {
             echo "\nStack OverFlow.";
         } else {
             echo "\nStack Not OverFlow.";
@@ -96,9 +107,7 @@ class Stack
     }
 }
 
-$stack = new Stack();
-
-$size = 4;
+$stack = new Stack(5);
 $stack->isStackEmpty();
 $stack->push(1);
 $stack->push(2);
@@ -115,4 +124,4 @@ $stack->display();
 $stack->peekOfStack();
 $stack->sizeOfStack();
 $stack->isStackEmpty();
-$stack->stackOverflow($size);
+$stack->stackOverflow();

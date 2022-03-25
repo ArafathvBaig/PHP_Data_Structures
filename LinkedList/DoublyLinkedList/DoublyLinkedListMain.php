@@ -27,7 +27,7 @@ class DoublyLinkedListLMain
         $doublyLinkedList->printList();
         $doublyLinkedList->deleteAtPosition(4);
         $doublyLinkedList->printList();
-        $doublyLinkedList->insertInBetween();
+        $doublyLinkedList->insertAfter();
         $doublyLinkedList->printList();
         $doublyLinkedList->search(70);
         $doublyLinkedList->sortAccendingOrder();

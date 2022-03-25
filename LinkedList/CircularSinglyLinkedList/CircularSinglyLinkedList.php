@@ -247,23 +247,25 @@ class CircularSinglyLinkedList
     }
 
     /**
-     * Function to insert node inbetween 2 nodes
+     * Function to insert new key after a key
      * Non-Parameterized function
      */
-    public function insertInBetween()
+    public function insertAfter()
     {
-        $node1 = readline('Enter 1st node data: ');
-        //$node2 = readline('Enter 2nd node data: ');
-        $node = readline('Enter a node data to insert in between node1 and node2: ');
+        $insertAfter = readline('Enter a key: ');
+        $newKey = readline('Enter a new key to insert: ');
         $newNode = new Node();
-        $newNode->data = $node;
+        $newNode->data = $newKey;
         $temp = $this->head;
-        while ($temp->data != $node1) {
+        while ($temp->data != $insertAfter) {
             $temp = $temp->next;
         }
-        $temp1 = $temp->next;
-        $temp->next = $newNode;
-        $newNode->next = $temp1;
+        if ($temp->data == $insertAfter) {
+            $newNode->next = $temp->next;
+            $temp->next = $newNode;
+        } else {
+            echo "key not found.";
+        }
     }
 
     /**
@@ -279,7 +281,7 @@ class CircularSinglyLinkedList
         }
         if ($present == $previous) {
             $this->head = null;
-            $this->head->next = null;
+            //$this->head->next = null;
         }
         $previous->next = $present->next;
     }

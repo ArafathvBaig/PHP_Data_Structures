@@ -27,7 +27,7 @@ class CircularSinglyLinkedListMain
         $circularSinglyLinkedList->printList();
         $circularSinglyLinkedList->deleteAtPosition(4);
         $circularSinglyLinkedList->printList();
-        $circularSinglyLinkedList->insertInBetween();
+        $circularSinglyLinkedList->insertAfter();
         $circularSinglyLinkedList->printList();
         $circularSinglyLinkedList->search(70);
         $circularSinglyLinkedList->sortAccendingOrder();

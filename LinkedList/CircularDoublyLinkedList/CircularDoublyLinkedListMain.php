@@ -26,7 +26,7 @@ class CircularDoublyLinkedListMain
         $circularDoublyLinkedList->printList();
         $circularDoublyLinkedList->deleteAtPosition(2);
         $circularDoublyLinkedList->printList();
-        $circularDoublyLinkedList->insertInBetween();
+        $circularDoublyLinkedList->insertAfter();
         $circularDoublyLinkedList->printList();
         $circularDoublyLinkedList->search(28);
         $circularDoublyLinkedList->sortAccendingOrder();
