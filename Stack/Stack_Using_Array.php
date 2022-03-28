@@ -27,6 +27,9 @@ class Stack
         //array_unshift($this->stack, $data);
         if ($this->top == -1) {
             echo "\nStack UnderFlow.";
+        } elseif ($this->stackOverflow()) {
+            echo "\nStack OverFlow.";
+            return;
         }
         $this->top++;
         $this->stackArray[$this->top] = $data;
@@ -39,12 +42,12 @@ class Stack
      */
     public function pop()
     {
-        if (empty($this->stackArray)) {
-            echo "\nStack is empty";
+        if ($this->isStackEmpty()) {
+            echo "\nStack is empty.";
         } else {
-            echo "\nPopped Element: " . $this->stackArray[$this->top];
-            unset($this->stackArray[$this->top]);
-            $this->top--;
+            echo "\nPopped Element: " . $this->stackArray[$this->top--];
+            //unset($this->stackArray[$this->top]);
+            //$this->top--;
         }
     }
 
@@ -54,9 +57,13 @@ class Stack
      */
     public function display()
     {
-        echo "\nCurrent Elements in stack are:: ";
-        for ($i = 0; $i < count($this->stackArray); $i++) {
-            echo $this->stackArray[$i] . " ";
+        if ($this->isStackEmpty()) {
+            echo "The Stack is Empty.";
+        } else {
+            echo "\nCurrent Elements in stack are:: ";
+            for ($i = $this->top; $i >= 0; $i--) {
+                echo $this->stackArray[$i] . " ";
+            }
         }
     }
 
@@ -77,7 +84,7 @@ class Stack
      */
     public function sizeOfStack()
     {
-        echo "\nSize of stack is: " . count($this->stackArray);
+        echo "\nSize of stack is: " . $this->top + 1;
     }
 
     /**
@@ -86,10 +93,10 @@ class Stack
      */
     public function isStackEmpty()
     {
-        if (count($this->stackArray) == 0) {
-            echo "\nThe stack is empty.";
+        if ($this->top == -1) {
+            return true;
         } else {
-            echo "\nThe stack is not empty.";
+            return false;
         }
     }
 
@@ -99,29 +106,28 @@ class Stack
      */
     public function stackOverflow()
     {
-        if (count($this->stackArray) > $this->size) {
-            echo "\nStack OverFlow.";
+        if ($this->top + 1 == $this->size) {
+            return true;
         } else {
-            echo "\nStack Not OverFlow.";
+            return false;
         }
     }
 }
 
 $stack = new Stack(5);
-$stack->isStackEmpty();
 $stack->push(1);
 $stack->push(2);
 $stack->display();
 $stack->peekOfStack();
-$stack->sizeOfStack();
 $stack->pop();
+$stack->display();
 $stack->push(3);
 $stack->push(4);
 $stack->push(5);
+$stack->push(6);
+$stack->push(7);
 $stack->display();
 $stack->pop();
 $stack->display();
 $stack->peekOfStack();
 $stack->sizeOfStack();
-$stack->isStackEmpty();
-$stack->stackOverflow();

@@ -30,6 +30,9 @@ class Queue
         if ($this->front == -1 && $this->back == -1) {
             echo "\nQueue UnderFlow.";
             $this->front++;
+        } elseif ($this->queueOverflow()) {
+            echo "\nQueue OverFlow.";
+            return;
         }
         $this->back++;
         $this->queueArray[$this->back] = $data;
@@ -42,19 +45,17 @@ class Queue
      */
     public function dequeue()
     {
-        if ($this->front == -1) {
-            echo "\nQueue is empty";
+        if ($this->isQueueEmpty()) {
+            echo "\nQueue is empty.";
         } else {
             if ($this->front == $this->back) {
                 $this->front--;
             }
             echo "\nDequeued element: " . $this->queueArray[$this->front];
             for ($i = 0; $i < $this->back; $i++) {
-                $temp = $this->queueArray[$i];
                 $this->queueArray[$i] = $this->queueArray[$i + 1];
-                $this->queueArray[$i + 1] = $temp;
             }
-            unset($this->queueArray[$this->back]);
+            //unset($this->queueArray[$this->back]);
             $this->back--;
         }
     }
@@ -65,9 +66,13 @@ class Queue
      */
     public function display()
     {
-        echo "\nElements of queue:: ";
-        foreach ($this->queueArray as $values) {
-            echo $values . " ";
+        if ($this->isQueueEmpty()) {
+            echo "\nThe Queue is Empty.";
+        } else {
+            echo "\nElements of queue:: ";
+            for ($i = 0; $i <= $this->back; $i++) {
+                echo $this->queueArray[$i] . " ";
+            }
         }
     }
 
@@ -88,7 +93,7 @@ class Queue
      */
     public function sizeOfQueue()
     {
-        echo "\nSize of queue is: " . count($this->queueArray);
+        echo "\nSize of queue is: " . $this->back + 1;
     }
 
     /**
@@ -97,10 +102,10 @@ class Queue
      */
     public function isQueueEmpty()
     {
-        if (count($this->queueArray) == 0) {
-            echo "\nThe queue is empty.";
+        if ($this->back == -1) {
+            return true;
         } else {
-            echo "\nThe queue is not empty.";
+            return false;
         }
     }
 
@@ -110,16 +115,15 @@ class Queue
      */
     public function queueOverflow()
     {
-        if (count($this->queueArray) > $this->size) {
-            echo "\nQueue OverFlow.";
+        if ($this->back + 1 == $this->size) {
+            return true;
         } else {
-            echo "\nQueue Not OverFlow.";
+            return false;
         }
     }
 }
 $queue = new Queue(5);
 
-$queue->isQueueEmpty();
 $queue->enqueue(10);
 $queue->enqueue(20);
 $queue->enqueue(30);
@@ -136,4 +140,3 @@ $queue->dequeue();
 $queue->display();
 $queue->peekOfQueue();
 $queue->sizeOfQueue();
-$queue->queueOverflow();
